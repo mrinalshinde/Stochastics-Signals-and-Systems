@@ -14,6 +14,7 @@ save dat1_3 x y;
 if exist('dat1_3.mat','file')
     load dat1_3;
     details = whos(matfile('dat1_3.mat'));
+    sprintf('\nVariable: %1s exists',details.name)
 else
     fprintf('\n')
     warning('Some error occured')

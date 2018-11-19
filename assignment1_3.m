@@ -24,7 +24,12 @@ z = sort(x);
 z1 = sort(x1);
 figure()
 plot(z,y,'LineWidth',2)
-set(gca,'FontSize',20)
+set(gca,'Title',text('String','Distribution function',...
+                     'FontAngle', 'italic', 'FontWeight', 'bold'),...
+         'xlabel',text('String', '$\mathbf{X}$', 'Interpreter', 'latex'),...
+         'ylabel',text('String', '$\mathbf{F(X)}$', 'Interpreter', 'latex'), ...
+         'FontSize',15)
+
 hold on
 plot(z1,y1,'LineWidth',2)
 xlabel('X')

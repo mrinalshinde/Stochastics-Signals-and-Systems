@@ -15,10 +15,12 @@ rand('state',0);
 x = rand(1,n);
 figure()
 plot(x)
-set(gca,'FontSize',20)
-title('Uniformly distributed random numbers')
-ylabel('Random values')
-xlabel('Random numbers')
+set(gca,'Title',text('String','Uniformly distributed random numbers',...
+                     'FontAngle', 'italic', 'FontWeight', 'bold'),...
+         'xlabel',text('String', 'random numbers', 'FontAngle','italic'),...
+         'ylabel',text('String', 'random values', 'FontAngle','italic'), ...
+         'FontSize',15)
+
 save dat1_1;
 y = load('dat1_1');
 disp('Saving the random sequence in dat1_1')

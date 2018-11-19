@@ -29,13 +29,17 @@ function plotGraphs(rho,location,theoretical,str)
 figure()
 bar(location,rho,'FaceColor',[0.9290, 0.6940, 0.1250], ...
     'EdgeColor','k','LineWidth',1)
+set(gca,'Title',text('String',str,'FontAngle', 'italic', ...
+    'FontWeight', 'bold'), ...
+         'xlabel',text('String', 'range', 'FontAngle','italic'),...
+         'ylabel',text('String', 'density','FontAngle','italic'), ...
+         'FontSize',18)
 hold on
 grid on
-set(gca,'FontSize',20)
+
 title(str)
 plot(location,rho,location,theoretical,'--','LineWidth',2.5);
 legend('Estimated value (bar graph)','Estimated value (line graph)', ...
     'Theoritical value');
-set(gca,'FontSize',20)
 hold off
 end
