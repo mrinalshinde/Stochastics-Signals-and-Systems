@@ -14,8 +14,9 @@ x1 = randn(1000,1);
 save dat1_2 x1; 
 [rho2,location2] = density(x1,bins);
 theoretical_normal = (1/(2*pi)^0.5)*exp(-0.5*((location2).^2));
-disp('getting line graph and bar graph for standard normal density function...')
-plotGraphs(rho2,location2,theoretical_normal,'Standard normal density function');
+disp('getting bar and line graph for standard normal density function...')
+plotGraphs(rho2,location2,theoretical_normal, ...
+    'Standard normal density function');
 disp('done')
 
 function [rho,location] = density(randomVariable,bins)
@@ -26,13 +27,15 @@ end
 
 function plotGraphs(rho,location,theoretical,str)
 figure()
-plot(location,rho,location,theoretical,'LineWidth',2);
+bar(location,rho,'FaceColor',[0.9290, 0.6940, 0.1250], ...
+    'EdgeColor','k','LineWidth',1)
+hold on
 grid on
 set(gca,'FontSize',20)
-legend('Estimated value','Theoritical value');
 title(str)
-figure()
-bar(location,rho)
+plot(location,rho,location,theoretical,'--','LineWidth',2.5);
+legend('Estimated value (bar graph)','Estimated value (line graph)', ...
+    'Theoritical value');
 set(gca,'FontSize',20)
-title(str)
+hold off
 end
