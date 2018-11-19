@@ -12,11 +12,10 @@ for i = 1:N
     radius = sqrt(x(i,1).^2 +y(i,1).^2);
     if radius <= 1
         no_insideCircle = no_insideCircle + 1;
-    else
     end
 end
 fprintf('Total number of elements inside circle is %d',no_insideCircle)
 approxPi = 4.*(no_insideCircle/N);
-fprintf('\nApproximate value of pi is %d',approxPi);
+fprintf('\nApproximate value of pi is %f',approxPi);
 
      

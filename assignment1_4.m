@@ -1,4 +1,4 @@
-%Generation of a bivariate normal distribution
+
 clear all;
 close all;
 clc
@@ -10,7 +10,6 @@ z2 = z1 * D;
 x = z2(:,1) + 1.5;
 y = z2(:,2) + 0.5;
 save dat1_3 x y;
-
 if exist('dat1_3.mat','file')
     load dat1_3;
     details = whos(matfile('dat1_3.mat'));

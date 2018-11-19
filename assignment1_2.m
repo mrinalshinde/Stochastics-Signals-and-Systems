@@ -36,8 +36,6 @@ set(gca,'Title',text('String',str,'FontAngle', 'italic', ...
          'FontSize',18)
 hold on
 grid on
-
-title(str)
 plot(location,rho,location,theoretical,'--','LineWidth',2.5);
 legend('Estimated value (bar graph)','Estimated value (line graph)', ...
     'Theoritical value');
