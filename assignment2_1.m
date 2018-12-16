@@ -4,20 +4,18 @@ clc
 
 load dat1_3; 
 std_normal_dist = (x - mean(x))/var(x);
-n = -4:0.25:4;
-[estimated_x, location] = density (std_normal_dist,length(n));
-theoretical_x = (1/sqrt(2*pi)) * exp(-(n.^2)/2); 
+[estimated_x, location, theoretical_x] = density (std_normal_dist);
 plotGraphs(estimated_x,location,theoretical_x, ...
     'Standard normal density function');
+display_results(std_normal_dist);
 
-fprintf('Mean:')
-fprintf('\n Theoretical value = %f',0)
-fprintf('\n Expected value = %s',num2str(mean(std_normal_dist)))
-fprintf('\n\n Variance:')
-fprintf('\n Theoretical value = %f',1)
-fprintf('\n Estimated value = %f',var(std_normal_dist))
-function [rho,location] = density(randomVariable,bins)
-[height,location] = hist(randomVariable,bins);  
+
+function [rho,location,theoretical_x] = density(randomVariable)
+% theoretical
+n = -4:0.25:4;
+theoretical_x = (1/sqrt(2*pi)) * exp(-(n.^2)/2); 
+% estimated
+[height,location] = hist(randomVariable,length(n));  
 delta = location(2)-location(1);  
 rho = height/(delta*length(randomVariable));  
 end
@@ -37,4 +35,13 @@ plot(location,rho,'r',location,theoretical,'--','LineWidth',3.0);
 legend('Estimated value (bar graph)','Estimated value (line graph)', ...
     'Theoritical value');
 hold off
+end
+
+function display_results(std_normal_dist)
+fprintf('Mean:')
+fprintf('\n Theoretical value = %f',0)
+fprintf('\n Expected value = %s',num2str(mean(std_normal_dist)))
+fprintf('\n\n Variance:')
+fprintf('\n Theoretical value = %f',1)
+fprintf('\n Estimated value = %f',var(std_normal_dist))
 end
