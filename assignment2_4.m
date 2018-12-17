@@ -13,12 +13,14 @@ display_results(product_Seq);
 function [rho,location,theoretical_product_seq] = density(randomVariable)
 %theoretical
 k = 0 : 0.025 : 1;
-theoretical_product_seq = -log(k);
+theoretical_product_seq =  -log(k);
     
 %estimated
 [height,location] = hist(randomVariable,length(k));  
 delta = location(2)-location(1);  
 rho = height/(delta*length(randomVariable));  
+
+theoretical_product_seq(1,1) = rho(1,1);
 end
 
 function plotGraphs(rho,location,theoretical,str)
@@ -29,10 +31,11 @@ set(gca,'Title',text('String',str,'FontAngle', 'italic', ...
     'FontWeight', 'bold'), ...
          'xlabel',text('String', 'range', 'FontAngle','italic'),...
          'ylabel',text('String', 'density','FontAngle','italic'), ...
-         'FontSize',26)
+        'FontSize',26)
 hold on
 grid on
-plot(location,rho,'r',location,theoretical,'--','LineWidth',3.0);
+plot(location,(rho),'r',location,(theoretical),'--','LineWidth',3.0);
+ylim([0 inf])
 legend('Estimated value (bar graph)','Estimated value (line graph)', ...
     'Theoritical value');
 hold off

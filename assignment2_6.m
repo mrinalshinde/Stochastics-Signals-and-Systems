@@ -2,23 +2,18 @@ clear all
 close all
 clc
 
-w = randn(1000,1);
-x = randn(1000,1);
-y = randn(1000,1);
-z = randn(1000,1);
-save data2_2 w x y z
-product_Seq = w.^2+x.^2+y.^2+z.^2;
-[estimated_product_seq, location, theoretical_product_seq] = ...
-    density (product_Seq);
-plotGraphs(estimated_product_seq,location,theoretical_product_seq, ...
-    '\chi^2 uniformly distributed density function');
-display_results(product_Seq);
+load dat2_1
+y1 = sqrt(-2*log(randomSeq_1)).*sin(2*pi*randomSeq_2);
+[estimated_y1, location, theoretical_y1] = density (y1);
+plotGraphs(estimated_y1,location,theoretical_y1, ...
+    'Normal distribution from uniform distribution');
+display_results(y1);
 
 
-function [rho,location,theoretical_product_seq] = density(randomVariable)
+function [rho,location,theoretical_y1] = density(randomVariable)
 %theoretical
-k = 0 : .5 : 20;
-theoretical_product_seq = (k/4).*exp(-k/2);
+k = -5 : 0.5 : 5;
+theoretical_y1 = (1/sqrt(2*pi)) * exp(-k.^2/2); 
     
 %estimated
 [height,location] = hist(randomVariable,length(k));  
@@ -43,11 +38,11 @@ legend('Estimated value (bar graph)','Estimated value (line graph)', ...
 hold off
 end
 
-function display_results(product_Seq)
+function display_results(y1)
 fprintf('Mean:')
-fprintf('\n Theoretical value = %f', 4)
-fprintf('\n Expected value = %s',num2str(mean(product_Seq)))
+fprintf('\n Theoretical value = %f', 0)
+fprintf('\n Expected value = %s',num2str(mean(y1)))
 fprintf('\n\n Variance:')
-fprintf('\n Theoretical value = %f',8)
-fprintf('\n Estimated value = %s',num2str(var(product_Seq)))
+fprintf('\n Theoretical value = %f',1)
+fprintf('\n Estimated value = %s',num2str(var(y1)))
 end
