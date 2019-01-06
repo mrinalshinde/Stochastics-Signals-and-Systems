@@ -6,7 +6,7 @@ load dat3_1;
 p = input('Input the order of the polynomial:');
 [a_exp, b_exp, sigma_exp] = LSE(xy1(:,1),xy1(:,2),'exponential',1);
 [a_sin, b_sin, sigma_sin] = LSE(xy2(:,1),xy2(:,2),'sine',1) ;
-[a_pow, b_pow, sigma_pow] = LSE(xy4(:,1),xy4(:,2),'power',1);
+%[a_pow, b_pow, sigma_pow] = LSE(xy4(:,1),xy4(:,2),'power',1);
 [a_ply, b_ply, sigma_ply] = LSE(xy3(:,1),xy3(:,2),'polynomial',p);
 
 function [a, b, sigma] = LSE(x, y, model, p)
@@ -43,8 +43,11 @@ elseif strcmp(model,'polynomial') == 1
     for i = 1:length(av)
          fprintf('\n%f',av(i,:))
     end
-    a = av(1,:);
-    b = av(2,:);
+    
+   % a = av(1,:);
+   % b = av(2,:);
+  
+    %fprintf('\n\nParameters for Polynomial model for degree = %d are:',p)
     fprintf('\nvariance = %f',sigma)
 end
 

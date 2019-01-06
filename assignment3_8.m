@@ -44,11 +44,11 @@ while (err > 10^-10)  & (count < count_max)
     count = count + 1;
     for i = length(x) : -1 : 1
         r(i) = sqrt((x(i)-mean_x)^2+(y(i)-mean_y)^2);
-        a(i) = r(i)+((x(i)-mean_x)/r(i))*mean_x+((y(i)-mean_y)/r(i))*mean_y; 
-        b(i) = -(x(i)-mean_x)/r(i);
-        c(i) = -(y(i)-mean_y)/r(i);
+       % a(i) = r(i)+((x(i)-mean_x)/r(i))*mean_x+((y(i)-mean_y)/r(i))*mean_y; 
+        a(i) = (x(i)-mean_x)/r(i);
+        b(i) = (y(i)-mean_y)/r(i);
     end
-    H = [-b' -c' ones(length(x),1)];
+    H = [-a' -b' ones(length(x),1)];
     V = (inv(H'*H))*H'*a';
     x0 = V(1);
     y0 = V(2);
