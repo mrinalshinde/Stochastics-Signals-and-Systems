@@ -14,25 +14,25 @@ plotGraphs(estimated_sum_seq,location,theoretical_sum_seq, ...
 display_results(sum_Seq);
 
 
-function [rho,location,theoretical_sum_seq] = density(randomVariable)
+function [estimated,location,theoretical] = density(randomVariable)
 %theoretical
 k = 0:.1:2;
 for i = length(k) : -1 : 1
     if k(i) <= 1
-        theoretical_sum_seq(i) = k(i);
+        theoretical(i) = k(i);
     else
-         theoretical_sum_seq(i) = 2 - k(i);
+         theoretical(i) = 2 - k(i);
     end
 end
 %estimated
 [height,location] = hist(randomVariable,length(k));  
 delta = location(2)-location(1);  
-rho = height/(delta*length(randomVariable));  
+estimated = height/(delta*length(randomVariable));  
 end
 
-function plotGraphs(rho,location,theoretical,str)
+function plotGraphs(estimated,location,theoretical,str)
 figure()
-bar(location,rho,'FaceColor',[0.9290, 0.6940, 0.1250], ...
+bar(location,estimated,'FaceColor',[0.9290, 0.6940, 0.1250], ...
     'EdgeColor','k','LineWidth',1)
 set(gca,'Title',text('String',str,'FontAngle', 'italic', ...
     'FontWeight', 'bold'), ...
@@ -41,17 +41,17 @@ set(gca,'Title',text('String',str,'FontAngle', 'italic', ...
          'FontSize',26)
 hold on
 grid on
-plot(location,rho,'r',location,theoretical,'--','LineWidth',3.0);
+plot(location,estimated,'r',location,theoretical,'--','LineWidth',3.0);
 legend('Estimated value (bar graph)','Estimated value (line graph)', ...
     'Theoritical value');
 hold off
 end
 
-function display_results(sum_Seq)
+function display_results(dist)
 fprintf('Mean:')
 fprintf('\n Theoretical value = %f', 1)
-fprintf('\n Expected value = %s',num2str(mean(sum_Seq)))
+fprintf('\n Expected value = %s',num2str(mean(dist)))
 fprintf('\n\n Variance:')
 fprintf('\n Theoretical value = %f',1/6)
-fprintf('\n Estimated value = %s',num2str(var(sum_Seq)))
+fprintf('\n Estimated value = %s',num2str(var(dist)))
 end
