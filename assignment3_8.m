@@ -1,60 +1,49 @@
-clear all;
-close all;
+clear all
+close all
 clc
 
 load dat3_2;
-
-xt=-6:1:14;
-yt=-8:1:12;
-a=1;
-k=1;
-
-
-for i=1:21
-    for j=1:21
-        x1(i)=xt(i);
-        y1(j)=yt(j); 
-        [x0,y0,r]=LSE_circle(x1(i),y1(j),xy(:,1),xy(:,2)); 
-        if xor(xor(isnan(x0),isnan(y0)),isnan(r))==1
-            xd(a)=x1(i);
-            yd(a)=y1(j);
-            a=a+1;
+x = xy(:,1);
+y = xy(:,2);
+[estx0, esty0, r] = LSE_circle(x, y, mean(x), mean(y));
+mx = -4 : 1 : 12; 
+my = -6 : 1 : 10;
+a = 1;
+b = 1; 
+X_NCONV = [];
+Y_NCONV = [];
+X_CONV = [];
+Y_CONV = [];
+for i = 16 : -1 : 1
+    for j = 1 : 17 
+        MX(i) = mx(i); 
+        MY(j) = my(j); 
+        [x0,y0,~] = LSE_circle(x,y,MX(i),MY(j)); 
+        u0 = abs(estx0-x0);
+        v0 = abs(esty0-y0);
+        r1 = sqrt(u0.^2 + v0.^2);
+        if r1 > r
+            X_NCONV(a) = MX(i); 
+            Y_NCONV(a) = MY(j);
+            a = a + 1;
         else
-            xc(k)=x1(i);
-            yc(k)=y1(j);
-            k=k+1;
+            X_CONV(b) = MX(i);
+            Y_CONV(b) = MY(j); 
+            b = b+1; 
         end
     end
 end
 figure()
-hold on
-plot(xc,yc,'.g');
-%plot(xd,yd,'.r',xc,yc,'.g'); 
-%legend('not converging','converging');
-%hold
-[x0,y0,r]=LSE_circle(mean(xy(:,1)),mean(xy(:,2)),xy(:,1),xy(:,2)); 
-rectangle('Position',[x0-r,y0-r,2*r,2*r],'Curvature',[1,1]);
-axis equal
-
-function [x0,y0,r] = LSE_circle(mean_x,mean_y,x,y)
-err = 1;
-count_max = 100;
-count = 0;
-while (err > 10^-10)  & (count < count_max)
-    count = count + 1;
-    for i = length(x) : -1 : 1
-        r(i) = sqrt((x(i)-mean_x)^2+(y(i)-mean_y)^2);
-       % a(i) = r(i)+((x(i)-mean_x)/r(i))*mean_x+((y(i)-mean_y)/r(i))*mean_y; 
-        a(i) = (x(i)-mean_x)/r(i);
-        b(i) = (y(i)-mean_y)/r(i);
-    end
-    H = [-a' -b' ones(length(x),1)];
-    V = (inv(H'*H))*H'*a';
-    x0 = V(1);
-    y0 = V(2);
-    r = V(3);
-    err = abs([x0 y0]-[mean_x mean_y]);
-    mean_x = x0;
-    mean_y = y0;
-end
-end
+plot(X_NCONV,Y_NCONV,'.r','MarkerSize',15)
+hold on;
+plot(X_CONV,Y_CONV,'.b','MarkerSize',15)
+set(gca,'Title',text('String','LS-Fit to a circle: convergence', ...
+    'FontAngle', 'italic','FontWeight', 'bold'), ...
+         'xlabel',text('String', 'x', 'FontAngle','italic'),...
+         'ylabel',text('String', 'y','FontAngle','italic'), ...
+         'FontSize',28)
+legend('not converging','converging');  
+rectangle('Position',[estx0-r,esty0-r,2*r,2*r],'Curvature',[1,1], ...
+    'LineWidth',3); 
+axis equal; 
+ 

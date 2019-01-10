@@ -19,8 +19,6 @@ elseif strcmp(model,'Sine Model') == 1
     compare(expected_value, expected_t, observed_x, observed_y, model);
 elseif strcmp(model,'Polynomial Model') == 1
     expected_value = 0 : 0.1 : 5;
-    %expected_t = -0.6002*expected_value.^3 + 0.9666*expected_value.^2 ...
-    %    + 2.4968*expected_value + 5.2989;
     expected_t = 4.709133 + 2.477967*expected_value  ...
         + 1.18741*expected_value.^2 - 0.640213766*expected_value.^3;
     compare(expected_value, expected_t, observed_x, observed_y, model);
@@ -29,7 +27,7 @@ elseif strcmp(model,'Power Model') == 1
     expected_t = 1.354748*(expected_value .^ 0.499158);
     compare(expected_value, expected_t, observed_x, observed_y, model);
 end
-    function compare(expected_x, expected_y,observed_x, observed_y, model)
+    function compare(expected_x,expected_y,observed_x,observed_y,model)
         figure()
         hold on
         plot(expected_x, expected_y,'LineWidth',3)
